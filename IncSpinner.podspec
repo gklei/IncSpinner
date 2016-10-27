@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+  This framework is meant to be used for loading screens in an iOS app. It should be very easy to use, and isn't meant to be extremely customizable.
                        DESC
 
   s.homepage         = 'https://github.com/Incipia/IncSpinner'
