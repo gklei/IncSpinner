@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'IncSpinner_Example' do
+  pod 'IncSpinner', :path => '../'
+
+  target 'IncSpinner_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
