@@ -1,0 +1,6 @@
+framework module IncSpinner {
+  umbrella header "IncSpinner-umbrella.h"
+
+  export *
+  module * { export * }
+}

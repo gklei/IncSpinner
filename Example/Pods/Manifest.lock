@@ -1,0 +1,16 @@
+PODS:
+  - IncSpinner (0.1.0)
+
+DEPENDENCIES:
+  - IncSpinner (from `../`)
+
+EXTERNAL SOURCES:
+  IncSpinner:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  IncSpinner: 8de6b84b0a77ad04ac6ae325e86f45c658fef436
+
+PODFILE CHECKSUM: 85c8ef7fdc19997563bee1a473607c0f50a2fa84
+
+COCOAPODS: 1.1.0.rc.3

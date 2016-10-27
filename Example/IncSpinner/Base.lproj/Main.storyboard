@@ -1,25 +1,55 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="IncSpinner_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stu" translatesAutoresizingMaskIntoConstraints="NO" id="B0x-d8-z3n"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="djN-pS-5vZ">
+                                <color key="backgroundColor" red="1" green="0.31329171989301741" blue="0.43820267297783211" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="rFC-Kq-RT9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <state key="normal" title="S  P  I  N">
+                                    <color key="titleColor" red="1" green="0.78783279998823397" blue="0.99605266632909772" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="_spinButtonPressed" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Zql-sn-ntJ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="djN-pS-5vZ" secondAttribute="bottom" id="Daa-sa-S0T"/>
+                            <constraint firstAttribute="trailing" secondItem="djN-pS-5vZ" secondAttribute="trailing" id="djR-Aa-EI9"/>
+                            <constraint firstItem="B0x-d8-z3n" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="ojq-Lw-QGz"/>
+                            <constraint firstAttribute="trailing" secondItem="B0x-d8-z3n" secondAttribute="trailing" id="r26-dK-64V"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="B0x-d8-z3n" secondAttribute="bottom" id="sAN-S9-MSH"/>
+                            <constraint firstItem="B0x-d8-z3n" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="sdi-2K-967"/>
+                            <constraint firstItem="djN-pS-5vZ" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="u6y-IR-l2X"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="37.600000000000001" y="43.628185907046479"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="stu" width="1125" height="1329"/>
+    </resources>
 </document>

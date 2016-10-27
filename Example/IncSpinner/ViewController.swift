@@ -7,18 +7,23 @@
 //
 
 import UIKit
+import IncSpinner
+
+private extension DispatchQueue {
+   func delay(_ seconds: Double, completion: @escaping () -> Void) {
+      let popTime = DispatchTime.now() + Double(Int64(Double(NSEC_PER_SEC) * seconds)) / Double(NSEC_PER_SEC)
+      asyncAfter(deadline: popTime) {
+         completion()
+      }
+   }
+}
 
 class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+   @IBAction private func _spinButtonPressed() {
+      IncSpinner.show(usingColor: .magenta)
+      DispatchQueue.main.delay(3.75) {
+         IncSpinner.hide()
+      }
+   }
 }
 
