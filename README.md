@@ -22,7 +22,7 @@ pod "IncSpinner"
 
 ## Author
 
-gklei, gregoryhklein@gmail.com
+gklei, gregory@incipia.co
 
 ## License
 
