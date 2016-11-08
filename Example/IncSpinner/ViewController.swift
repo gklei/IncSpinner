@@ -20,7 +20,7 @@ private extension DispatchQueue {
 
 class ViewController: UIViewController {
    @IBAction private func _spinButtonPressed() {
-      IncSpinner.show(usingColor: .magenta)
+      IncSpinner.show(withTitle: "Loading...", color: .magenta)
       DispatchQueue.main.delay(3.75) {
          IncSpinner.hide()
       }

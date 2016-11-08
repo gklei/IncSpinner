@@ -16,6 +16,7 @@
 		895B9030638251E9B6141BF598D4B370 /* Pods-IncSpinner_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FD46110585E503B6232A3ECE8328766E /* Pods-IncSpinner_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F91558BFB05C1D1662A4F07D981A28D /* IncSpinner-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3D0E504C8143A09EFE6206E939A4E /* IncSpinner-dummy.m */; };
 		A1B149B7A3C90E75924171C69C1D2760 /* Pods-IncSpinner_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C454D3F456068FE51A86401B25DEC6AB /* Pods-IncSpinner_Example-dummy.m */; };
+		CE788ED41DD173AD0087FB46 /* IncSpinner+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE788ED31DD173AD0087FB46 /* IncSpinner+Extensions.swift */; };
 		F5B32A52D0B21DE10E9C6E3686912C80 /* Pods-IncSpinner_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D31D858801F3C31A13DB11B70F38B706 /* Pods-IncSpinner_Tests-dummy.m */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,7 @@
 		BB2094134C8D365207681574CF611C0C /* IncSpinner-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "IncSpinner-prefix.pch"; sourceTree = "<group>"; };
 		C454D3F456068FE51A86401B25DEC6AB /* Pods-IncSpinner_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-IncSpinner_Example-dummy.m"; sourceTree = "<group>"; };
 		C50C6F9207644C8235A275BA3F84EB09 /* IncSpinner.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = IncSpinner.xcconfig; sourceTree = "<group>"; };
+		CE788ED31DD173AD0087FB46 /* IncSpinner+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IncSpinner+Extensions.swift"; sourceTree = "<group>"; };
 		CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D31D858801F3C31A13DB11B70F38B706 /* Pods-IncSpinner_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-IncSpinner_Tests-dummy.m"; sourceTree = "<group>"; };
 		D95C776283238C0D0BACD39062650C7B /* IncSpinner.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = IncSpinner.modulemap; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				972C3FD56E817ADA819338D012CB1E6B /* IncSpinner.swift */,
+				CE788ED31DD173AD0087FB46 /* IncSpinner+Extensions.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F91558BFB05C1D1662A4F07D981A28D /* IncSpinner-dummy.m in Sources */,
+				CE788ED41DD173AD0087FB46 /* IncSpinner+Extensions.swift in Sources */,
 				82CE234522A38C8BD8A0981F81DADEAA /* IncSpinner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

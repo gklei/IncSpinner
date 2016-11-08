@@ -8,49 +8,18 @@
 
 import UIKit
 
-private extension DispatchQueue {
-   func incSpinner_delay(_ seconds: Double, completion: @escaping () -> Void) {
-      let popTime = DispatchTime.now() + Double(Int64(Double(NSEC_PER_SEC) * seconds)) / Double(NSEC_PER_SEC)
-      asyncAfter(deadline: popTime) {
-         completion()
-      }
-   }
-}
-
-private extension UIView {
-   func incSpinner_addAndFill(subview: UIView) {
-      addSubview(subview)
-      subview.translatesAutoresizingMaskIntoConstraints = false
-      subview.topAnchor.constraint(equalTo: topAnchor).isActive = true
-      subview.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-      subview.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-      subview.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-   }
-}
-
-private extension CABasicAnimation {
-   static var incSpinner_scale: CABasicAnimation {
-      let scaleAnim = CABasicAnimation(keyPath: "transform.scale")
-      scaleAnim.fromValue = 0
-      scaleAnim.toValue = 1
-      scaleAnim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-      return scaleAnim
+// TODO: User this class to wrap the replicator layer
+private class IncSpinner_PlusingCircleView: UIView {
+   required init?(coder aDecoder: NSCoder) {
+      super.init(coder: aDecoder)
    }
    
-   static var incSpinner_fadeIn: CABasicAnimation {
-      let alphaAnim = CABasicAnimation(keyPath: "opacity")
-      alphaAnim.toValue = NSNumber(value: 1.0)
-      alphaAnim.fromValue = NSNumber(value: 0.0)
-      alphaAnim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-      return alphaAnim
+   override init(frame: CGRect) {
+      super.init(frame: frame)
    }
    
-   static var incSpinner_fadeOut: CABasicAnimation {
-      let alphaAnim = CABasicAnimation(keyPath: "opacity")
-      alphaAnim.toValue = NSNumber(value: 0.0)
-      alphaAnim.fromValue = NSNumber(value: 1.0)
-      alphaAnim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-      return alphaAnim
+   convenience init(frame: CGRect, circleCount count: Int) {
+      self.init(frame: frame)
    }
 }
 
@@ -58,7 +27,7 @@ private class IncSpinner_PulsingCircleReplicatorLayer: CAReplicatorLayer {
    private let _padding: CGFloat = 20
    
    required init?(coder aDecoder: NSCoder) {
-      fatalError("init(coder:) has not been implemented")
+      super.init(coder: aDecoder)
    }
    
    override init() {
@@ -113,35 +82,59 @@ private class IncSpinner_PulsingCircleReplicatorLayer: CAReplicatorLayer {
 
 public class IncSpinner {
    private static let shared = IncSpinner()
-   public static var animationDuration: TimeInterval = 0.8
+   public static var pulseDuration: TimeInterval = 0.8
+   public static var fadeDuration: TimeInterval = 0.8
    
    private weak var container: UIView?
-   private var effectView: UIVisualEffectView?
+   private var blurredEffectView: UIVisualEffectView?
+   private var vibrancyEffectView: UIVisualEffectView?
    private var replicatorLayer: CAReplicatorLayer?
-   private var fadeDuration: TimeInterval = 0.5
+   private var textLabel: UILabel?
    
    public class func show(inView view: UIView? = nil,
-                          withStyle style: UIBlurEffectStyle = .dark,
-                          usingColor color: UIColor) {
+                          withTitle title: String? = nil,
+                          usingFont font: UIFont? = nil,
+                          style: UIBlurEffectStyle = .dark,
+                          color: UIColor) {
       let container = view ?? UIApplication.shared.keyWindow
       guard let unwrappedContainer = container else { return }
       
       shared._startUsing(container: unwrappedContainer)
       
-      let effectView = shared._addEffectView(toContainer: unwrappedContainer)
-      shared.effectView = effectView
+      let blurredEffectView = shared._addEffectView(toContainer: unwrappedContainer)
+      shared.blurredEffectView = blurredEffectView
       
-      let layer = shared._addSpinnerLayer(to: effectView.contentView,
+      let layer = shared._addSpinnerLayer(to: blurredEffectView.contentView,
                                           withCircleColor: color,
-                                          animationDuration: animationDuration)
-      layer.position = CGPoint(x: unwrappedContainer.bounds.midX, y: unwrappedContainer.bounds.midY)
+                                          pulseDuration: pulseDuration)
+      
+      let yOffset: CGFloat = title != nil ? -20 : 0
+      layer.position = CGPoint(x: unwrappedContainer.bounds.midX, y: unwrappedContainer.bounds.midY + yOffset)
       shared.replicatorLayer = layer
       
-      shared._animateBlurIn(withDuration: shared.fadeDuration, style: style)
+      if let title = title {
+         let label = UILabel(incSpinnerText: title, font: font)
+         let vibrancyEffectView = shared._addEffectView(toContainer: unwrappedContainer)
+         
+         vibrancyEffectView.contentView.addSubview(label)
+         label.translatesAutoresizingMaskIntoConstraints = false
+         
+         [label.centerYAnchor.constraint(equalTo: vibrancyEffectView.centerYAnchor, constant: 60),
+         label.centerXAnchor.constraint(equalTo: vibrancyEffectView.centerXAnchor),
+         label.leftAnchor.constraint(equalTo: vibrancyEffectView.leftAnchor, constant: 40),
+         label.rightAnchor.constraint(equalTo: vibrancyEffectView.rightAnchor, constant: -40)
+         ].forEach { $0.isActive = true }
+         
+         label.textAlignment = .center
+         
+         shared.textLabel = label
+         shared.vibrancyEffectView = vibrancyEffectView
+      }
+      
+      shared._animateBlurIn(withDuration: fadeDuration, style: style)
    }
    
    public class func hide(completion: (() -> Void)? = nil) {
-      let fadeDuration = shared.fadeDuration
       shared._fadeReplicatorLayerOut(withDuration: fadeDuration * 0.8)
       DispatchQueue.main.incSpinner_delay(fadeDuration * 0.5) {
          shared._animateBlurOut(withDuration: fadeDuration) {
@@ -160,38 +153,50 @@ public class IncSpinner {
    
    private func _reset() {
       replicatorLayer?.removeFromSuperlayer()
-      effectView?.removeFromSuperview()
+      blurredEffectView?.removeFromSuperview()
+      vibrancyEffectView?.removeFromSuperview()
       replicatorLayer = nil
-      effectView = nil
+      blurredEffectView = nil
+      vibrancyEffectView = nil
       container = nil
    }
    
    private func _addEffectView(toContainer container: UIView) -> UIVisualEffectView {
-      let blurView = UIVisualEffectView(effect: nil)
-      container.incSpinner_addAndFill(subview: blurView)
-      return blurView
+      let effectView = UIVisualEffectView(effect: nil)
+      container.incSpinner_addAndFill(subview: effectView)
+      return effectView
    }
    
    private func _addSpinnerLayer(to view: UIView,
                                  withCircleColor color: UIColor,
-                                 animationDuration: TimeInterval) -> CAReplicatorLayer {
+                                 pulseDuration: TimeInterval) -> CAReplicatorLayer {
       let replicatorLayer = IncSpinner_PulsingCircleReplicatorLayer(circleCount: 3,
                                                                     circleSize: 60,
                                                                     circleColor: color,
-                                                                    animationDuration: animationDuration)
+                                                                    animationDuration: pulseDuration)
       view.layer.addSublayer(replicatorLayer)
       return replicatorLayer
    }
    
    private func _animateBlurIn(withDuration duration: TimeInterval, style: UIBlurEffectStyle) {
-      UIView.animate(withDuration: duration) {
-         self.effectView?.effect = UIBlurEffect(style: style)
+      textLabel?.textColor = .clear
+      let blurEffect = UIBlurEffect(style: style)
+      
+      UIView.animate(withDuration: duration, animations: {
+         self.blurredEffectView?.effect = blurEffect
+         }) { finished in
+            guard let effectView = self.vibrancyEffectView, let label = self.textLabel else { return }
+            UIView.animate(withDuration: duration * 0.5, animations: {
+               effectView.effect = UIVibrancyEffect(blurEffect: blurEffect)
+               label.textColor = .white
+            })
       }
    }
    
    private func _animateBlurOut(withDuration duration: TimeInterval, completion: (() -> Void)?) {
       UIView.animate(withDuration: duration, animations: {
-         self.effectView?.effect = nil
+         self.blurredEffectView?.effect = nil
+         self.vibrancyEffectView?.effect = nil
       }) { (finished) in
          completion?()
       }
