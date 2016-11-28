@@ -8,7 +8,7 @@
 
 import UIKit
 
-// TODO: User this class to wrap the replicator layer
+// TODO: Use this class to wrap the replicator layer
 private class IncSpinner_PlusingCircleView: UIView {
    required init?(coder aDecoder: NSCoder) {
       super.init(coder: aDecoder)
@@ -188,6 +188,7 @@ public class IncSpinner {
             guard let effectView = self.vibrancyEffectView, let label = self.textLabel else { return }
             UIView.animate(withDuration: duration * 0.5, animations: {
                effectView.effect = UIVibrancyEffect(blurEffect: blurEffect)
+               label.alpha = 1.0
                label.textColor = .white
             })
       }
@@ -197,6 +198,7 @@ public class IncSpinner {
       UIView.animate(withDuration: duration, animations: {
          self.blurredEffectView?.effect = nil
          self.vibrancyEffectView?.effect = nil
+         self.textLabel?.alpha = 0.0
       }) { (finished) in
          completion?()
       }
