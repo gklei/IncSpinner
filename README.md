@@ -24,7 +24,7 @@ pod "IncSpinner"
 
 ## Author
 
-gklei, gregory@incipia.co
+gklei: gregory@incipia.co
 
 ## License
 
