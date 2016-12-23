@@ -5,6 +5,8 @@
 [![License](https://img.shields.io/cocoapods/l/IncSpinner.svg?style=flat)](http://cocoapods.org/pods/IncSpinner)
 [![Platform](https://img.shields.io/cocoapods/p/IncSpinner.svg?style=flat)](http://cocoapods.org/pods/IncSpinner)
 
+![Spinner Animation](readme_assets/spinner_demo_1.gif)
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
