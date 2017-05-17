@@ -16,6 +16,19 @@ extension UILabel {
       textAlignment = .center
       numberOfLines = 0
    }
+   
+   convenience init(tapToDismissText text: String, fontName: String? = nil) {
+      self.init()
+      self.text = text
+      
+      var font: UIFont? = UIFont.systemFont(ofSize: 20)
+      if let fontName = fontName {
+         font = UIFont(name: fontName, size: 16)
+      }
+      self.font = font
+      textAlignment = .center
+      numberOfLines = 0
+   }
 }
 
 extension DispatchQueue {

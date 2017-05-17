@@ -90,6 +90,7 @@ public class IncSpinner {
    private var vibrancyEffectView: UIVisualEffectView?
    private var replicatorLayer: CAReplicatorLayer?
    private var textLabel: UILabel?
+   private var tapToDismissLabel: UILabel?
    
    public class func show(inView view: UIView? = nil,
                           withTitle title: String? = nil,
@@ -129,6 +130,16 @@ public class IncSpinner {
          
          shared.textLabel = label
          shared.vibrancyEffectView = vibrancyEffectView
+      }
+      
+      if let effectView = shared.vibrancyEffectView {
+         let tapToDismissLabel = UILabel(tapToDismissText: "Tap to dismiss", fontName: font?.fontName)
+         tapToDismissLabel.translatesAutoresizingMaskIntoConstraints = false
+         
+         effectView.contentView.addSubview(tapToDismissLabel)
+         tapToDismissLabel.topAnchor.constraint(equalTo: effectView.topAnchor, constant: 40).isActive = true
+         tapToDismissLabel.centerXAnchor.constraint(equalTo: effectView.centerXAnchor).isActive = true
+         shared.tapToDismissLabel = tapToDismissLabel
       }
       
       shared._animateBlurIn(withDuration: fadeDuration, style: style)
@@ -180,16 +191,20 @@ public class IncSpinner {
    
    private func _animateBlurIn(withDuration duration: TimeInterval, style: UIBlurEffectStyle) {
       textLabel?.textColor = .clear
+      tapToDismissLabel?.textColor = .clear
       let blurEffect = UIBlurEffect(style: style)
       
       UIView.animate(withDuration: duration, animations: {
          self.blurredEffectView?.effect = blurEffect
          }) { finished in
-            guard let effectView = self.vibrancyEffectView, let label = self.textLabel else { return }
+            guard let effectView = self.vibrancyEffectView, let label = self.textLabel, let tapToDismissLabel = self.tapToDismissLabel else { return }
             UIView.animate(withDuration: duration * 0.5, animations: {
                effectView.effect = UIVibrancyEffect(blurEffect: blurEffect)
                label.alpha = 1.0
                label.textColor = .white
+               
+               tapToDismissLabel.alpha = 1.0
+               tapToDismissLabel.textColor = .white
             })
       }
    }
@@ -199,6 +214,7 @@ public class IncSpinner {
          self.blurredEffectView?.effect = nil
          self.vibrancyEffectView?.effect = nil
          self.textLabel?.alpha = 0.0
+         self.tapToDismissLabel?.alpha = 0.0
       }) { (finished) in
          completion?()
       }
@@ -210,5 +226,8 @@ public class IncSpinner {
       anim.fillMode = kCAFillModeForwards
       anim.isRemovedOnCompletion = false
       replicatorLayer?.add(anim, forKey: nil)
+   }
+   
+   private func _addTapToDismissLabel(using font: UIFont) {
    }
 }
